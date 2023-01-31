@@ -6,6 +6,9 @@ const ApiFeatures = require("../utils/apiFeatures");
 
 // Creating new product only admin can create the new products
 exports.createProduct=tryCatchFunc(async( req,res , next)=>{
+
+  req.body.user=req.user.id
+
  const product = await ProductCreate.create(req.body)
  res.status(201).json({
     success:true,
