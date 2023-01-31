@@ -16,11 +16,17 @@ exports.createProduct=tryCatchFunc(async( req,res , next)=>{
 
 // Get all product 
 exports.getProduct= tryCatchFunc(async(req,res)=>{
-   const apiFeature = new ApiFeatures(ProductCreate.find(),req.query).search().filter()
+
+  const resultPerPage=10
+  const productCount= await ProductCreate.countDocuments();
+
+
+   const apiFeature = new ApiFeatures(ProductCreate.find(),req.query).search().filter().pagination(resultPerPage)
  const allProduct= await apiFeature.query
  res.status(200).json({
    success:true,
-   allProduct
+   allProduct,
+   productCount
 })
 });
 
@@ -67,7 +73,7 @@ exports.deleteProduct= tryCatchFunc(async (req, res , next)=>{
  let product= await ProductCreate.findById(req.params.id);
 
  if(!product){
-   return next(new ErrorHandler("Product not found " , 404))
+   return next(new ErrorHandler("Product not found " , 404)) // middleware error handling
  }
 // { simple error handling method below
 // //  if(!product){
