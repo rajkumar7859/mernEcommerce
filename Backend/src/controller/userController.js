@@ -4,8 +4,8 @@ const tryCatchFunc = require("../middleware/tryCatchErrorMiddleware");
 const User =require("../models/userModel");
 const sendToken = require("../utils/jwtToken");
 
-// Register user
 
+// Register user
 exports.registerUser=tryCatchFunc(async (req, res,next)=>{
     const {userName , email , password}=req.body;
 
@@ -22,8 +22,8 @@ exports.registerUser=tryCatchFunc(async (req, res,next)=>{
     sendToken( user, 201, res)
 })
 
-// login user 
 
+// login user 
 exports.loginUser=tryCatchFunc(async (req,res,next)=>{
     const { email, password }=req.body;
 
@@ -51,7 +51,6 @@ exports.loginUser=tryCatchFunc(async (req,res,next)=>{
 
 
 // logout user
-
 exports.logoutUser=tryCatchFunc(async (req,res,next)=>{
     res.cookie("token" , null ,{
         expires:new Date(Date.now()),
