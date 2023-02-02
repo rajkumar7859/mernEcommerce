@@ -133,7 +133,7 @@ sendToken(user ,200 , res)
 
 })
 
-// Get user Detail
+// Get user Detail own 
 exports.getUserDetail=tryCatchFunc(async ( req , res, next)=>{
     console.log(req.user.id);
     const user= await User.findById(req.user.id)
@@ -163,4 +163,51 @@ exports.updateUserPassword=tryCatchFunc(async(req,res,next)=>{
 })
 
 // update user profile
+exports.updateUserProfile=tryCatchFunc(async(req, res,next)=>{
+    const newUserData={
+        userName:req.body.userName,
+        email:req.body.email,
+    }
 
+    const user = await User.findByIdAndUpdate(req.user.id , newUserData ,{
+        new:true,
+        runValidators:true,
+        useFindAndModify:false,
+    })
+
+    res.status(200).json({
+        success:true,
+        user
+    })
+
+})
+// get all user Admin
+exports.getAllUser=tryCatchFunc(async(req,res,next)=>{
+    const users=await User.find();
+
+    if(!users){
+        return next(
+            new ErrorHandler(`User does not exist with Id:${req.params.id}`)
+        )
+    }
+
+    res.status(200).json({
+        success:true,
+        users
+    })
+})
+// get single user (admin)
+exports.getSingleUser=tryCatchFunc(async(req,res,next)=>{
+    const users=await User.findById(req.params.id)
+
+    if(!users){
+        return next(
+            new ErrorHandler(`User does not exist with Id:${req.params.id}`)
+        )
+    }
+
+    res.status(200).json({
+        success:true,
+        users
+    })
+})
