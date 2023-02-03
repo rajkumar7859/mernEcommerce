@@ -92,3 +92,94 @@ exports.deleteProduct= tryCatchFunc(async (req, res , next)=>{
    message:"Product deleted successfully"
  })
 });
+
+exports.createProductReview=tryCatchFunc( async (req,res,next)=>{
+
+  const {rating , comment , productId}=req.body;
+  const review={
+   user:req.user._id,
+   userName:req.user.userName,
+  rating:Number(rating),
+  comment,
+  productId
+  };
+
+  const product = await ProductCreate.findById(productId);
+
+  const isReviewed =product.reviews.find(rev=>rev.user.toString()===req.user.id.toString())
+
+  if(isReviewed){
+product.reviews.forEach(rev => {
+  if(rev.user.toString()===req.user._id.toString())
+  (rev.rating=rating) , (rev.comment=comment)
+});
+  }
+  else{
+    product.reviews.push(review)
+    product.numOfReviews = product.reviews.length
+  }
+
+  // avg of ratings
+  let avgRatings=0;
+  product.ratings= product.reviews.forEach(rev=>{
+avgRatings+=rev.ratings;
+  })
+  product.ratings = avgRatings/product.reviews.length;
+
+  await product.save({ validateBeforeSave:false });
+
+  res.status(200).json({
+    success:true,
+    product,
+  })
+})
+
+// delete reviews
+exports.deleteReview=tryCatchFunc(async (req, res,next)=>{
+
+  const product = await ProductCreate.findById(req.query.productId);
+
+  if(!product){
+    return next(new ErrorHandler("Product not found" , 404))
+  }
+
+  const reviews= product.reviews.filter((rev)=> rev._id.toString() !==req.query.id.toString());
+
+  let avgRatings=0;
+  reviews.forEach((rev)=>{
+    avgRatings+=rev.rating;
+  })
+
+  const ratings = avgRatings/reviews.length;
+
+  const numOfReviews= reviews.length
+
+  await ProductCreate.findByIdAndUpdate(req.query.productId,{
+    reviews,
+    ratings, 
+    numOfReviews
+  },{
+    new :true,
+    runValidators:true,
+    useFindAndModify:false
+  })
+
+  res.status(200).json({
+    success:true
+  })
+
+})
+
+// get all product 
+exports.getAllProductReviews= tryCatchFunc(async(req,res,next)=>{
+  const product = await ProductCreate.findById(req.query.id);
+
+  if(!product){
+    return next(new ErrorHandler("Product not found" , 404));
+  }
+
+  res.status(200).json({
+    success:true,
+    reviews:product.reviews,
+  })
+})
