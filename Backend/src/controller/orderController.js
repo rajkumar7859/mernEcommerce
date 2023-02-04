@@ -62,3 +62,70 @@ exports.getMyOrder= tryCatchFunc(async (req,res,next)=>{
     })
 
 })
+
+// get all orders -- admin
+exports.getAllOrders= tryCatchFunc(async (req,res,next)=>{
+    const orders = await Order.find();
+
+    let totalAmount=0;
+    let totalOrdersCounts=orders.length
+    orders.forEach((order)=>{
+        totalAmount+=order.totalPrice
+    })
+    res.status(200).json({
+        success:true,
+        totalAmount,
+        totalOrdersCounts,
+        orders,
+    })
+})
+
+// update order status - admin
+exports.updateOrderStatus=tryCatchFunc(async ( req,res,next)=>{
+const order = await Order.find(req.params.id);
+
+if(order.orderStatus==="Delivered")
+{
+    return next(new ErrorHandler("You have already delivered this order" ,400))
+};
+
+order.orderItems.forEach(async (order)=>{
+    await updateStock(order.Product , order.quantity)
+})
+
+order.orderStatus= req.body.status;
+
+if(req.body.status==="Delivered")
+{
+    order.deliveredAt= Date.now();
+}
+
+await order.save({validateBeforeSave:false})
+
+res.status(200).json({
+    success:true
+})
+
+})
+
+async function updateStock(id, quantity){
+const product = await Product.findById(id);
+product.stock -=quantity;
+await product.save({validateBeforeSave:false})
+};
+
+// delete order
+
+exports.deleteOrder= tryCatchFunc(async (req,res,next)=>{
+    const order = await Order.find(req.params.id);
+
+    if(!order){
+        return next(new ErrorHandler("Order not found with this id"  , 404))
+    };
+
+    await order.remove();
+
+    res.status(200).json({
+        success:true
+    });
+})
