@@ -82,7 +82,11 @@ exports.getAllOrders= tryCatchFunc(async (req,res,next)=>{
 
 // update order status - admin
 exports.updateOrderStatus=tryCatchFunc(async ( req,res,next)=>{
-const order = await Order.find(req.params.id);
+const order = await Order.findById(req.params.id);
+
+ if(!order){
+        return next(new ErrorHandler("Order not found with this id"  , 404))
+    };
 
 if(order.orderStatus==="Delivered")
 {
@@ -90,7 +94,7 @@ if(order.orderStatus==="Delivered")
 };
 
 order.orderItems.forEach(async (order)=>{
-    await updateStock(order.Product , order.quantity)
+    await updateStock(order.product , order.quantity)
 })
 
 order.orderStatus= req.body.status;
@@ -115,9 +119,8 @@ await product.save({validateBeforeSave:false})
 };
 
 // delete order
-
 exports.deleteOrder= tryCatchFunc(async (req,res,next)=>{
-    const order = await Order.find(req.params.id);
+    const order = await Order.findById(req.params.id);
 
     if(!order){
         return next(new ErrorHandler("Order not found with this id"  , 404))
