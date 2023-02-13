@@ -12,12 +12,46 @@ color: white;
     width: auto;
     }
     .innerTab {
-    background-color: white;
-    padding: 10px 10px 10px 10px;
-    position: absolute;
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
-    list-style-type: none;
-    line-height: 30px;
-    display: none;
+        display: none;
+        position: absolute;
+        background-color: #f9f9f9;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;
+        border-radius: 10px;
+}
+    .innerTab li{
+        color: black;
+        padding: 0px 16px;
+        text-decoration: none;
+        display: block;
+}
+.tab li:hover>.innerTabProfile{
+    display: block;
+    width: auto;
     }
+    .innerTabProfile {
+        display: none;
+        position: absolute;
+        background-color: #f9f9f9;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;
+        border-radius: 10px;
+        margin-top: 2px;
+        margin-left: -3rem;
+}
+    .innerTabProfile li{
+        color: black;
+        padding: 0px 16px;
+        text-decoration: none;
+        display: block;
+}
+
+/* padding: 10px 10px 10px 10px;
+position: absolute;
+box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+list-style-type: none;
+line-height: 30px;
+display: none; */
     
