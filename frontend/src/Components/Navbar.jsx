@@ -29,7 +29,7 @@ const Navbar = () => {
         </button>
       </div>
       <div
-        className={`w-full block flex-grow md:flex flex-col-reverse md:items-center md:w-auto ${
+        className={`w-full block  md:flex flex-col-reverse md:items-center md:w-auto ${
           isOpen ? "block" : "hidden"
         }`}
       >
@@ -38,8 +38,8 @@ const Navbar = () => {
             <li>
               <Link
                 to="/"
-                className={`block mt-4 md:inline-block md:mt-0 text-black hover:text-white mr-4 ${
-                  location.pathname === "/" ? "underline" : ""
+                className={`block mt-4 md:inline-block md:mt-0 text-black hover: mr-4 ${
+                  location.pathname === "/" ? "underline underline-offset-4 decoration-yellow-300 decoration-2" : ""
                 }`}
                 onClick={toggleOpen}
               >
@@ -50,10 +50,10 @@ const Navbar = () => {
               {" "}
               <Link
                 to="/deals"
-                className={`block mt-4 md:inline-block md:mt-0 text-black hover:text-white mr-4 ${
+                className={`block mt-4 md:inline-block md:mt-0 text-black hover: mr-4 ${
                   location.pathname === "/deals"
-                    ? "underline "
-                    : " hover:underline transition-all duration-200"
+                    ? "underline underline-offset-4 decoration-yellow-300 decoration-2 "
+                    : ""
                 }`}
                 onClick={toggleOpen}
               >
@@ -78,8 +78,8 @@ const Navbar = () => {
               {" "}
               <Link
                 to="/contact"
-                className={`block mt-4 md:inline-block md:mt-0 text-black hover:text-white mr-4 ${
-                  location.pathname === "/contact" ? "underline" : ""
+                className={`block mt-4 md:inline-block md:mt-0 text-black hover: mr-4 ${
+                  location.pathname === "/contact" ? "underline underline-offset-4 decoration-yellow-300 decoration-2" : ""
                 }`}
                 onClick={toggleOpen}
               >
@@ -89,8 +89,8 @@ const Navbar = () => {
             <li>
               <Link
                 to="/aboutus"
-                className={`block mt-4 md:inline-block md:mt-0 text-black hover:text-white mr-4 ${
-                  location.pathname === "/aboutus" ? "underline" : ""
+                className={`block mt-4 md:inline-block md:mt-0 text-black hover: mr-4 ${
+                  location.pathname === "/aboutus" ? "underline underline-offset-4 decoration-yellow-300 decoration-2" : ""
                 }`}
                 onClick={toggleOpen}
               >
@@ -98,12 +98,18 @@ const Navbar = () => {
               </Link>
             </li>
             <li>
-              <Button>
+
+            <div className="flex items-center flex-shrink-0 text-white mr-6">
+          <img src="../assest/user.png" className="w-12 h-12 rounded-full" alt="Profile" />
+          <span className="font-semibold text-xl tracking-tight">Your Name</span>
+        </div>
+
+            </li>
+            <li>
+              <Button mt="-7px" bg="#E2E8F0">
               <Link
                 to="/signup"
-                className={`block mt-4 md:inline-block md:mt-0 text-black hover:text-white mr-4 ${
-                  location.pathname === "/signup" ? "underline" : ""
-                }`}
+                className={`block mt-4 md:inline-block md:mt-0 text-black`}
                 onClick={toggleOpen}
               >
                 Sign Up
