@@ -4,6 +4,7 @@ justify-content: space-between;
 position: relative;
 list-style: none;
 color: white;
+text-align: center;
 
 }
 
@@ -25,6 +26,7 @@ color: white;
         padding: 0px 16px;
         text-decoration: none;
         display: block;
+        
 }
 .tab li:hover>.innerTabProfile{
     display: block;

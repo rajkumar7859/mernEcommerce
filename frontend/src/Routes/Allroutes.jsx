@@ -12,6 +12,7 @@ import SignUp from './SignUp'
 const Allroutes = () => {
   return (
     <div>
+       
         <Navbar />
       <Routes>
         <Route path='/' element={<Home />} />

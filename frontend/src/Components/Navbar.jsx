@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { FaBars } from "react-icons/fa";
 import { CgClose } from "react-icons/cg";
-import "../Styles/index.css";
+import "../Styles/Navbar.css";
 import { Button } from "@chakra-ui/react";
 import profile from "../assets/image/user.png";
+import ScrollIndicator from "./ScrollIndicator";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -13,9 +14,21 @@ const Navbar = () => {
   const toggleOpen = () => {
     setIsOpen(!isOpen);
   };
+  const completion = ScrollIndicator();
+
 
   return (
     <nav className="flex w-full items-center justify-between flex-wrap bg-sky-400 p-3 fixed z-10">
+
+<span
+        id="progress-bar"
+        style={{
+          transform: `translateX(${completion - 100}%)`,
+        }}
+        className={`absolute bottom-0 w-full transition-transform duration-150 h-1 bg-yellow-300`}
+      />
+
+
       <div className="flex items-center flex-shrink-0 text-white mr-6">
         <Link to="/" className="font-semibold text-xl tracking-tight">
           My App
@@ -108,7 +121,7 @@ const Navbar = () => {
               {/* <div className="flex items-center flex-shrink-0 text-white mr-5 -mt-1.5"> */}
                 <img
                   src={profile}
-                  className="w-10 h-10 rounded-full flex items-center flex-shrink-0 text-white mr-5 -mt-1.5"
+                  className="w-10 h-10  rounded-full flex items-center flex-shrink-0 text-white  mr-5 -mt-1.5 "
                   alt="Profile"
                 />
                 <ul className="innerTabProfile">
