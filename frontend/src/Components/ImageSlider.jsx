@@ -14,20 +14,20 @@ const ImageSlider = () => {
           url: "https://img.freepik.com/premium-photo/shopping-trolley-blue-background-with-some-copy-space_348487-393.jpg",
         },
         {
-          url: "https://picsum.photos/id/20/300/200",
+          url: "https://img.freepik.com/premium-photo/shopping-trolley-blue-background-with-some-copy-space_348487-393.jpg",
         },
         {
-          url: "https://picsum.photos/id/30/300/200",
+          url: "https://img.freepik.com/premium-photo/shopping-trolley-blue-background-with-some-copy-space_348487-393.jpg",
         },
       ];
 
   return (
     <div >
-       <Swiper
+       <Swiper style={{paddingTop:"57px"}}
         spaceBetween={30}
         centeredSlides={true}
         autoplay={{
-          delay: 3000,
+          delay: 4000,
           disableOnInteraction: false,
         }}
         pagination={{
@@ -39,7 +39,7 @@ const ImageSlider = () => {
       >
         {
             images?.map((sliderImg)=>{
-              return <SwiperSlide><img src={sliderImg.url} alt="slider" /></SwiperSlide>
+              return <SwiperSlide ><img src={sliderImg.url} key={sliderImg.url} alt="slider" style={{height:"22rem"}} /></SwiperSlide>
             })
         }
       </Swiper>

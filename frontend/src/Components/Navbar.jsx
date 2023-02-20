@@ -25,7 +25,7 @@ const Navbar = () => {
         style={{
           transform: `translateX(${completion - 100}%)`,
         }}
-        className={`absolute bottom-0 w-full transition-transform duration-150 h-1 bg-yellow-300`}
+        className={`absolute bottom-0 w-full transition-transform duration-150 h-1 -ml-3 bg-yellow-300`}
       />
 
 
