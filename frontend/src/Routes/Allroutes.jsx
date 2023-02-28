@@ -11,7 +11,7 @@ import SignUp from './SignUp'
 
 const Allroutes = () => {
   return (
-    <div>
+    <div >
        
         <Navbar />
       <Routes>
