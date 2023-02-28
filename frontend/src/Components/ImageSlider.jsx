@@ -39,7 +39,7 @@ const ImageSlider = () => {
       >
         {
             images?.map((sliderImg)=>{
-              return <SwiperSlide ><img src={sliderImg.url} key={sliderImg.url} alt="slider" style={{height:"22rem"}} /></SwiperSlide>
+              return <SwiperSlide ><img className='md:w-full lg:w-full sm:w-full' src={sliderImg.url} key={sliderImg.url} alt="slider" style={{height:"22rem"}} /></SwiperSlide>
             })
         }
       </Swiper>
